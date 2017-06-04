@@ -10,11 +10,16 @@ Plugin 'dracula/vim'
 Plugin 'ascenator/L9', {'name': 'newL9'}
 Plugin 'fatih/vim-go'
 Plugin 'scrooloose/nerdtree'
+Plugin 'vim-airline/vim-airline' " airline
+Plugin 'kien/ctrlp.vim'          " ctrlp
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " ---------------------------vim base config ----------------
+"  set utf-8
+" set encoding=utf-8
+
 " color setting
 syntax on
 color dracula
@@ -23,7 +28,7 @@ color dracula
 set gfn=Consolas:h12
 
 " set window size
-set lines=50
+set lines=40
 set columns=120
 
 " set number
@@ -40,6 +45,9 @@ set noerrorbells
 " voice setting
 set vb t_vb=
 
+" set no swap
+set noswapfile
+
 " hide menu
 :set guioptions-=m  "remove menu bar
 :set guioptions-=T  "remove toolbar
@@ -50,11 +58,17 @@ set vb t_vb=
 set mouse=a
 
 " key map
-map <F1> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
 map <F2> :GoBuild<CR>
 map <F3> :GoRun<CR>
+map <F1> :NERDTreeToggle<CR>
+
+" node tree config
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
 
 " set window middle
 function WindowCenterInScreen()
