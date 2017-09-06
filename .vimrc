@@ -4,14 +4,16 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'dracula/vim'
+Plugin 'VundleVim/Vundle.vim'            " 插件管理
+Plugin 'dracula/vim'                     " 颜色主题
 Plugin 'ascenator/L9', {'name': 'newL9'}
-Plugin 'fatih/vim-go'
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-airline/vim-airline'
-Plugin 'kien/ctrlp.vim'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'fatih/vim-go'                    " golang 插件
+Plugin 'scrooloose/nerdtree'             " 目录插件
+Plugin 'vim-airline/vim-airline'         " 底边栏目插件
+Plugin 'kien/ctrlp.vim'                  " 最近打开文件插件
+Plugin 'flazz/vim-colorschemes'
+Plugin 'joshdick/onedark.vim'
+" Plugin 'Valloric/YouCompleteMe'          " 自动补全插件
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -24,7 +26,8 @@ syntax on
 set encoding=utf-8
 
 " colorscheme
-color dracula 
+" colorscheme dracula 
+colorscheme onedark
 
 " font set
 set guifont=Menlo\ Regular:h13
@@ -62,6 +65,7 @@ set mouse=a
 map <F2> :GoBuild<CR>
 map <F3> :GoRun<CR>
 map <F1> :NERDTreeToggle<CR>
+map <F4> :CtrlPMRU<CR>
 
 " base key map
 inoremap ( ()<ESC>i
