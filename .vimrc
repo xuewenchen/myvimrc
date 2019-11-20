@@ -23,12 +23,12 @@ Plugin 'moll/vim-node'                 " node js plugin
 Plugin 'terryma/vim-multiple-cursors'  " 多行操作
 Plugin 'godlygeek/tabular'             " 代码格文本式化插件
 Plugin 'plasticboy/vim-markdown'       " markdown
-Plugin 'klen/python-mode'              " python mode
 Plugin 'nvie/vim-flake8'               " flake 8
-Plugin 'tomasiser/vim-code-dark'       " vscode-them for vim
+" Plugin 'tomasiser/vim-code-dark'       " vscode-them for vim
+Plugin 'rakr/vim-one'                  " atom colortheme now for vim
 Plugin 'mhinz/vim-signify'             " show git change
 Plugin 'tpope/vim-commentary'          " 代码注释
-Plugin 'Valloric/YouCompleteMe'        " 代码补全
+" Plugin 'Valloric/YouCompleteMe'        " 代码补全
 Plugin 'taglist.vim'                   " vim taglist
 Plugin 'Yggdroot/indentLine'           " 对齐竖线
 Plugin 'chase/vim-ansible-yaml'        " ansible
@@ -42,16 +42,29 @@ let mapleader=","
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 主题
+"Credit joshdick
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
 syntax on                   " 开启语法高亮
-" set background=dark
-" color dracula             " 可以显示背景的主题
-" colorscheme gruvbox         " 设置主题---有点灰色
-colorscheme codedark
-set t_Co=256
-set t_ut=
+set background=dark
+colorscheme one
+let g:one_allow_italics = 1
 
 
-" ---------------------------------- 础设定 ----------------------------
+" ---------------------------------- 基础设定 ----------------------------
 set vb t_vb=
 set number
 set showcmd                                " 显示出输入的命令
@@ -87,19 +100,18 @@ set cursorline          "高亮当前行
 " key map
 
 " 拷贝相关
-vmap y :w !pbcopy<CR><CR>
-nmap yy :.w !pbcopy<CR><CR>
-nmap p :r !pbpaste<CR><CR>
+set mouse=v
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 其他插件设置
 
 
 " -------------- vim-airline theme ------------
-let g:airline_theme='simple'
+let g:airline_theme='one'
 
 
 " -------------- nodetree -------------------
+map <C-t> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
@@ -135,6 +147,8 @@ let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 
 " ------------- markdown ---------------
@@ -145,79 +159,4 @@ let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_json_frontmatter = 1
-let g:vim_markdown_no_extensions_in_markdown = 1
-
-
-""""""""""""""""""""""
- "Quickly Run
-""""""""""""""""""""""
-" map <C-r> :call CompileRunGcc()<CR>
-" func! CompileRunGcc()
-"     exec "w"
-"     if &filetype == 'c'
-"                 exec "!g++ % -o %<"
-"                 exec "!time ./%<"
-"     elseif &filetype == 'cpp'
-"                 exec "!g++ % -o %<"
-"                 exec "!time ./%<"
-"     elseif &filetype == 'java'
-"                 exec "!javac %"
-"                 exec "!time java %<"
-"     elseif &filetype == 'sh'
-"                 exec "!sh %"
-"                 exec "!time sh %<"
-"     elseif &filetype == 'python'
-" 		        exec "!time python2.7 %"
-"     elseif &filetype == 'go'
-"                 exec "!go build %<"
-"                 exec "!time go run %"
-"     elseif &filetype == 'javascript.jsx'
-"                 exec "!node %<"
-"                 exec "!time node %"
-"     endif
-" endfunc
-
-
-" -------------------- youcomplate me --------------
-" 自动补全配置
-set completeopt=longest,menu    "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif    "离开插入模式后自动关闭预览窗口
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"    "回车即选中当前项
-"上下左右键的行为 会显示其他信息
-inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-
-"youcompleteme  默认tab  s-tab 和自动补全冲突
-"let g:ycm_key_list_select_completion=['<c-n>']
-let g:ycm_key_list_select_completion = ['<Down>']
-"let g:ycm_key_list_previous_completion=['<c-p>']
-let g:ycm_key_list_previous_completion = ['<Up>']
-let g:ycm_confirm_extra_conf=0 "关闭加载.ycm_extra_conf.py提示
-
-let g:ycm_collect_identifiers_from_tags_files=1    " 开启 YCM 基于标签引擎
-let g:ycm_min_num_of_chars_for_completion=2        " 从第2个键入字符就开始罗列匹配项
-let g:ycm_cache_omnifunc=0                         " 禁止缓存匹配项,每次都重新生成匹配项
-let g:ycm_seed_identifiers_with_syntax=1           " 语法关键字补全
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>    "force recomile with syntastic
-"nnoremap <leader>lo :lopen<CR>    "open locationlist
-"nnoremap <leader>lc :lclose<CR>    "close locationlist
-inoremap <leader><leader> <C-x><C-o>
-"在注释输入中也能补全
-let g:ycm_complete_in_comments = 1
-"在字符串输入中也能补全
-let g:ycm_complete_in_strings = 1
-"注释和字符串中的文字也会被收入补全
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> " 跳转到定义处
-
-" --------- 
-"indentLine
-let g:indentLine_setColors = 0
-let g:indentLine_char='┆'
-let g:indentLine_enabled = 1
-
-
-" --------------------------- pymode ------------------------
-let g:pymode_options_max_line_length = 0
+l
