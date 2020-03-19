@@ -22,7 +22,7 @@ Plugin 'terryma/vim-multiple-cursors'  " 多行操作
 Plugin 'godlygeek/tabular'             " 代码格文本式化插件
 Plugin 'plasticboy/vim-markdown'       " markdown
 Plugin 'iamcco/markdown-preview.nvim'  " markdown
-Plugin 'suan/vim-instant-markdown'     " mardown instance view 
+Plugin 'suan/vim-instant-markdown'     " mardown instance view
 Plugin 'nvie/vim-flake8'               " flake 8
 " Plugin 'rakr/vim-one'                " atom colortheme now for vim
 Plugin 'morhetz/gruvbox'               " the yellow theme
@@ -32,7 +32,7 @@ Plugin 'Yggdroot/indentLine'           " 对齐竖线
 Plugin 'chase/vim-ansible-yaml'        " ansible
 " ====== rust
 Plugin 'racer-rust/vim-racer'
-Plugin 'rust-lang/rust.vim'            
+Plugin 'rust-lang/rust.vim'
 Plugin 'mileszs/ack.vim'             " code auto save
 " ============ google search =========
 Plugin 'google/vim-searchindex'      " this is count search count
@@ -58,30 +58,19 @@ Plugin 'marijnh/tern_for_vim' " javascript代码分析引擎
 
 
 " =========== vim python ===========
-" Plugin 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plugin 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+
+" =========== vue ========
+Plugin 'posva/vim-vue'
 
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" --------------------------------------------- 
+" ---------------------------------------------
 " set leader
 let mapleader=","
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" one 主题
-" if (empty($TMUX))
-"   if (has("nvim"))
-"   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-"   endif
-"   if (has("termguicolors"))
-"     set termguicolors
-"   endif
-" endif
-" syntax on                   " 开启语法高亮
-" set background=dark
-" colorscheme one
-" let g:one_allow_italics = 1
 
 syntax on                   " 开启语法高亮
 colorscheme gruvbox
@@ -156,7 +145,7 @@ set ttimeoutlen=0
 nnoremap <leader>\ :vs<space>
 nnoremap <leader>- :sp<space>
 
-" ====== 可以使用tab在小窗口列出所有符合条件的命令和文件 
+" ====== 可以使用tab在小窗口列出所有符合条件的命令和文件
 set wildmenu
 set wildmode=list:full
 set wildignorecase
@@ -285,6 +274,8 @@ nnoremap <silent> <Leader>A :Ag<CR>
 
 
 " ======== python ========
+let g:pymode_options_max_line_length = 120
+let g:pymode_run_bind = '<leader>r'
 " au BufNewFile,BufRead *.py
 " \ set tabstop=4
 " \ set softtabstop=4
@@ -328,7 +319,7 @@ let g:ale_cpp_cppcheck_options = ''
 
 
 " ============= you complete me ===========
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py' 
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_use_clangd = 0
 " 在注释输入中也能补全
@@ -337,7 +328,8 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 " 注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
-
+" java
+let g:EclimCompletionMethod = 'omnifunc'
 
 " ============== super table ==========
 " make YCM compatible with UltiSnips (using supertab)
