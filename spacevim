@@ -27,7 +27,9 @@
     statusline_unicode_symbols = false
     # Enable vim compatible mode, avoid changing origin vim key bindings
     vimcompatible = true
-    default_indent = 4 # set indent
+    default_indent = 4
+    filetree_direction = "left"
+    bootstrap_before = "myspacevim#before"
 
 # Enable autocomplete layer
 [[layers]]
@@ -40,25 +42,23 @@ name = 'shell'
 default_position = 'top'
 default_height = 30
 
+
 [[layers]]
 name = 'lang#go'
 
 [[layers]]
-name = 'lang#python'
+name = 'lang#php'
 
 [[layers]]
-name = 'format'
+name = 'lang#rust'
 
 [[layers]]
-name = "lang#c"
+name = 'lang#lua'
 
 # [[layers]]
-#   name = "lsp"
-#   filetypes = [
-#       "c",
-#       "cpp"
-#   ]
-#   [layers.override_cmd]
-#     c = ["clang"]
-#     cpp = ["clang"]
-#
+  # name = 'lsp'
+  # filetypes = [
+    # "php"
+  # ]
+  # [layers.override_cmd]
+    # php = ["php-language-server"]
