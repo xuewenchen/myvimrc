@@ -17,32 +17,25 @@ Plug 'terryma/vim-expand-region'    " 快速选择文本
 Plug 'terryma/vim-smooth-scroll'    " 平滑滚动 
 Plug 'terryma/vim-multiple-cursors' " 多行选择
 
-Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox' " 土色配色
+Plug 'owickstrom/vim-colors-paramount' " 黑色配色
 Plug 'tpope/vim-commentary'
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine' " 竖线注释
 Plug 'bling/vim-bufferline'
 Plug 'majutsushi/tagbar'
 
 " must brew install the_silver_searcher
-" Plug 'ctrlpvim/ctrlp.vim'             " 模糊目录搜索文件
+Plug 'ctrlpvim/ctrlp.vim'             " 模糊目录搜索文件
 Plug 'FelikZ/ctrlp-py-matcher'          " 模糊搜索高速
 Plug 'rking/ag.vim'                     " 模糊搜索高速
 Plug 'mileszs/ack.vim'
 Plug 'google/vim-searchindex'
 
 " fzf
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tracyone/fzf-funky',{'on': 'FzfFunky'}
-
-" rust
-" cargo install racer
-Plug 'racer-rust/vim-racer'
-Plug 'rust-lang/rust.vim'
-
-" vue
-Plug 'posva/vim-vue'
 
 " float window
 Plug 'voldikss/vim-floaterm'
@@ -56,20 +49,14 @@ Plug 'mhinz/vim-startify'
 " coco.nvim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" lua
-Plug 'andrejlevkovitch/vim-lua-format'
-
 call plug#end()
 
 " ---------------------------------- theme ------------------------------
+" colorscheme gruvbox
+" colorscheme delek
 set background=dark
 syntax enable
-colorscheme gruvbox
-" colorscheme delek
-
-" packadd! dracula
-" syntax enable
-" colorscheme dracula
+colorscheme paramount
 
 " ---------------------------------- set leader ------------------------
 let mapleader=","
@@ -118,28 +105,6 @@ nnoremap <leader>- :sp<space>
 " let g:ag_working_path_mode="r"
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-" ============ rust config
-let g:rustfmt_autosave = 1
-let g:syntastic_rust_checkers = ['cargo']
-let g:rustc_path = $HOME."/.cargo/bin/rustc"
-
-" ============ lua
-autocmd FileType lua nnoremap <buffer> <c-k> :call LuaFormat()<cr>
-autocmd BufWrite *.lua call LuaFormat()
-
-" =========== racer config
-let g:racer_cmd = '/Users/cxw/.cargo/bin/racer'
-let g:racer_experimental_completer = 1
-let g:racer_insert_paren = 1
-augroup Racer
-    autocmd!
-    autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
-    autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
-    autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
-    autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
-    autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
-augroup END
-
 nnoremap <F3> :Ag -i 
 
 " ============= fzf
@@ -161,14 +126,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " =============== Tagbar config
  map <F2> :Tagbar<CR>
-
-" =============== indent config
-let g:indentLine_concealcursor = 'inc'
-let g:indentLine_conceallevel = 2
-let g:indentLine_color_term = 239
-let g:indentLine_char = '|'
-set list lcs=tab:\|\ 
-
 
 " =============== close match paire highlight
 function! g:FuckThatMatchParen ()
