@@ -6,21 +6,22 @@ call plug#begin('~/.vim/plugged')
 " Declare the list of plugins.
 Plug 'tpope/vim-sensible'
 Plug 'junegunn/seoul256.vim'
-" Plug 'fatih/vim-go'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'Blackrush/vim-gocode'
+" Plug 'fatih/vim-go'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-expand-region'    " 快速选择文本
-Plug 'terryma/vim-smooth-scroll'    " 平滑滚动 
+Plug 'terryma/vim-smooth-scroll'    " 平滑滚动
 Plug 'terryma/vim-multiple-cursors' " 多行选择
-
 Plug 'morhetz/gruvbox' " 土色配色
 Plug 'owickstrom/vim-colors-paramount' " 黑色配色
+Plug 'tomasiser/vim-code-dark' " vscode theme
+Plug 'rakr/vim-one'
 Plug 'tpope/vim-commentary'
-" Plug 'Yggdroot/indentLine' " 竖线注释
+Plug 'Yggdroot/indentLine' " 竖线注释
 Plug 'bling/vim-bufferline'
 Plug 'majutsushi/tagbar'
 
@@ -46,17 +47,42 @@ Plug 'preservim/nerdtree'
 " startify show history editor file
 Plug 'mhinz/vim-startify'
 
+" git
+Plug 'tpope/vim-fugitive'
+
 " coco.nvim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" clang format
+Plug 'rhysd/vim-clang-format', {'for' : ['c', 'cpp']}
+
+" icon
+Plug 'ryanoasis/vim-devicons'
+
+" buffer only :BufOnly
+Plug 'vim-scripts/BufOnly.vim'
 
 call plug#end()
 
 " ---------------------------------- theme ------------------------------
-" colorscheme gruvbox
+colorscheme gruvbox
 " colorscheme delek
+" colorscheme paramount
+" colorscheme codedark
 set background=dark
-syntax enable
-colorscheme paramount
+set t_Co=256
+set t_ut=
+" colorscheme one
+" syntax enable
+" if (empty($TMUX))
+"   if (has("nvim"))
+"     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"   endif
+"   if (has("termguicolors"))
+"     set termguicolors
+"   endif
+" endif
+" let g:one_allow_italics = 1
 
 " ---------------------------------- set leader ------------------------
 let mapleader=","
@@ -74,9 +100,10 @@ set autoread                               " 当文件在外部被改变时，vi
 set history=1000                           " 历史记录条数从20到1000
 set autowrite                              " 自动保存
 set nowrap                                 " 设置不自动折行
-set mouse=a                                " 允许鼠标
+set mouse=v                                " 允许鼠标
 set relativenumber                         " 相对行号
 set autoread
+set title
 
 " --------------------------------- 缩进相关 --------------------------------
 set autoindent                             " 自动缩进
@@ -105,19 +132,19 @@ nnoremap <leader>- :sp<space>
 " let g:ag_working_path_mode="r"
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-nnoremap <F3> :Ag -i 
+nnoremap <F3> :Ag -i
 
-" ============= fzf
-nnoremap <silent> <Leader>f :Files<CR>
-nnoremap <silent> <Leader>b :Buffers<CR>
+" ============= fzf config
+nnoremap <silent> <Leader>ff :Files<CR>
+nnoremap <silent> <Leader>bb :Buffers<CR>
 
 " ============== fzf-function config
 nnoremap <Leader>fu :FzfFunky<Cr>
 nnoremap <Leader>fU :execute 'FzfFunky ' . expand('<cword>')<Cr>
-nnoremap <Leader>FF :Ag 
-nnoremap <Leader>GG :Rg<Cr>
+nnoremap <Leader>Ag :Ag
+nnoremap <Leader>Rg :Rg<Cr>
 
-" =============== floaterm mapping
+" =============== floaterm mapping config
 let g:floaterm_keymap_toggle = '<F10>'
 
 " =============== nerdtree config
@@ -138,12 +165,18 @@ augroup plugin_initialize
     autocmd VimEnter * call FuckThatMatchParen()
 augroup END
 
-" =============== 平滑滚动  
+" =============== 平滑滚动
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
+" 缩进
+xnoremap < <gv
+xnoremap > >gv
+
+" ==================== clang format
+let g:clang_format#auto_format=0
 
 " =================== coco.nvim
 " TextEdit might fail if hidden is not set.
@@ -304,3 +337,7 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" some setting add to coc.nvim
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
