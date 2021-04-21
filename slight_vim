@@ -5,12 +5,13 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'fatih/vim-go'
 " Plug 'jiangmiao/auto-pairs'            " auto pair
 Plug 'tpope/vim-surround'              "
 Plug 'terryma/vim-expand-region'       " 快速选择文本
 Plug 'terryma/vim-smooth-scroll'       " 平滑滚动
 Plug 'terryma/vim-multiple-cursors'    " 多行选择
-Plug 'owickstrom/vim-colors-paramount' " 黑色配色
+" Plug 'owickstrom/vim-colors-paramount' " 黑色配色
 Plug 'tpope/vim-commentary'
 " must brew install the_silver_searcher
 Plug 'ctrlpvim/ctrlp.vim'               " 模糊目录搜索文件
@@ -18,32 +19,28 @@ Plug 'FelikZ/ctrlp-py-matcher'          " 模糊搜索高速
 Plug 'rking/ag.vim'                     " 模糊搜索高速
 Plug 'mileszs/ack.vim'
 Plug 'google/vim-searchindex'
-
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tracyone/fzf-funky',{'on': 'FzfFunky'}
-
 " float window
 Plug 'voldikss/vim-floaterm'
-
 " nerdtree
 Plug 'preservim/nerdtree'
-
 " startify show history editor file
 Plug 'mhinz/vim-startify'
-
 " buffer only :BufOnly
 Plug 'vim-scripts/BufOnly.vim'
-
 " slight complete
 Plug 'skywind3000/vim-dict'
+" color pair
+Plug 'luochen1990/rainbow'
 
 call plug#end()
 
 " ---------------------------------- theme ------------------------------
-colorscheme paramount
+colorscheme desert
 set background=dark
 set t_Co=256
 set t_ut=
@@ -136,3 +133,20 @@ nnoremap <Leader>Rg :Rg<Cr>
 
 " =============== floaterm mapping config
 let g:floaterm_keymap_toggle = '<F10>'
+
+" 彩虹括号配置
+let g:rainbow_active = 1
+
+" vim-go config
+let g:go_info_mode = 'gopls'
+let g:go_fmt_command = 'gopls'
+let g:go_imports_mode = 'gopls'
+let g:go_def_mode = 'gopls'
+let g:go_fillstruct_mode = 'fillstruct'
+let g:go_referrers_mode = 'gopls'
+let g:go_implements_mode = 'gopls'
+let g:go_rename_command = 'gopls'
+let g:go_gopls_enabled = 1
+
+" auto file type do something
+" au filetype go inoremap <buffer> . .<C-x><C-o>
