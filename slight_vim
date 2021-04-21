@@ -1,0 +1,138 @@
+set rtp+=/usr/local/opt/fzf
+
+" Plugins will be downloaded under the specified directory.
+call plug#begin('~/.vim/plugged')
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'jiangmiao/auto-pairs'            " auto pair
+Plug 'tpope/vim-surround'              "
+Plug 'terryma/vim-expand-region'       " 快速选择文本
+Plug 'terryma/vim-smooth-scroll'       " 平滑滚动
+Plug 'terryma/vim-multiple-cursors'    " 多行选择
+Plug 'owickstrom/vim-colors-paramount' " 黑色配色
+Plug 'tpope/vim-commentary'
+" must brew install the_silver_searcher
+Plug 'ctrlpvim/ctrlp.vim'               " 模糊目录搜索文件
+Plug 'FelikZ/ctrlp-py-matcher'          " 模糊搜索高速
+Plug 'rking/ag.vim'                     " 模糊搜索高速
+Plug 'mileszs/ack.vim'
+Plug 'google/vim-searchindex'
+
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'tracyone/fzf-funky',{'on': 'FzfFunky'}
+
+" float window
+Plug 'voldikss/vim-floaterm'
+
+" nerdtree
+Plug 'preservim/nerdtree'
+
+" startify show history editor file
+Plug 'mhinz/vim-startify'
+
+" buffer only :BufOnly
+Plug 'vim-scripts/BufOnly.vim'
+
+" slight complete
+Plug 'skywind3000/vim-dict'
+
+call plug#end()
+
+" ---------------------------------- theme ------------------------------
+colorscheme paramount
+set background=dark
+set t_Co=256
+set t_ut=
+
+" ---------------------------------- set leader ------------------------
+let mapleader=","
+
+" ---------------------------------- 基础设定 ----------------------------
+syntax on
+set vb t_vb=
+set number
+set showcmd                                " 显示出输入的命令
+set ruler                                  " 显示光标所在位置
+set nocompatible                           " 关闭兼容模式
+set nobackup                               " 不要备份文件
+set noswapfile                             " 不要交换文件
+set autoread                               " 当文件在外部被改变时，vim自动更新载入
+set history=1000                           " 历史记录条数从20到1000
+set autowrite                              " 自动保存
+set nowrap                                 " 设置不自动折行
+set mouse=v                                " 允许鼠标
+set relativenumber                         " 相对行号
+set autoread
+set title
+
+" --------------------------------- 缩进相关 --------------------------------
+set autoindent
+set smartindent                            " 智能缩进
+set softtabstop=4                          " 缩进长度
+set shiftwidth=4                           " 缩进长度
+set tabstop=4                              " tab键长度
+set expandtab                              " 设置将tab转换为4个空格
+
+" --------------------------------- 搜索和匹配 ------------------------------
+set showmatch 			" 高亮显示匹配的括号
+set matchtime=1 		" 匹配括号高亮的时间（单位是十分之一秒）
+set hlsearch 			" 高亮搜索
+set incsearch 			" 边输入边查找
+set ignorecase 			" 在搜索的时候忽略大小写
+
+" =========== make vim faster
+set timeoutlen=1000
+set ttimeoutlen=0
+
+nnoremap <F3> :Ag -i
+
+" =========== Split fast
+nnoremap <leader>\ :vs<space>
+nnoremap <leader>- :sp<space>
+
+" 平滑滚动
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
+" 批量缩进
+xnoremap < <gv
+xnoremap > >gv
+
+
+" ================================================================ 插件相关 ============
+"
+" vim-auto-popmenu config
+" 设定需要生效的文件类型，如果是 "*" 的话，代表所有类型
+let g:apc_enable_ft = {'text':1, 'markdown':1, 'php':1, 'go':1}
+" 设定从字典文件以及当前打开的文件里收集补全单词，详情看 ':help cpt'
+set cpt=.,k,w,b
+" 不要自动选中第一个选项。
+set completeopt=menu,menuone,noselect
+" 禁止在下方显示一些啰嗦的提示
+set shortmess+=c
+
+" nerdtree config
+map <F1> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" ag config
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" fzf config
+nnoremap <silent> <Leader>ff :Files<CR>
+nnoremap <silent> <Leader>bb :Buffers<CR>
+
+" fzf-function config
+nnoremap <Leader>fu :FzfFunky<Cr>
+nnoremap <Leader>fU :execute 'FzfFunky ' . expand('<cword>')<Cr>
+nnoremap <Leader>Ag :Ag
+nnoremap <Leader>Rg :Rg<Cr>
+
+" =============== floaterm mapping config
+let g:floaterm_keymap_toggle = '<F10>'
