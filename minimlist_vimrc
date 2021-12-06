@@ -1,0 +1,110 @@
+" 1, minimalist plugin  https://github.com/junegunn/vim-plug
+" 2, should install fzf
+" 3, should vim > 8 or use neovim
+
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+Plug 'junegunn/vim-easy-align'
+
+" Any valid git URL is allowed
+Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+" Multiple Plug commands can be written in a single line using | separators
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+Plug 'fatih/vim-go', { 'tag': '*' }
+
+" Plugin options
+Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'tracyone/fzf-funky',{'on': 'FzfFunky'}
+
+" better search
+Plug 'google/vim-searchindex'
+
+" show dashboard and history file
+Plug 'mhinz/vim-startify'
+
+" theme
+Plug 'NLKNguyen/papercolor-theme'
+
+" comment code faster
+Plug 'tpope/vim-commentary'
+Plug 'jiangmiao/auto-pairs'              " auto pair
+Plug 'tpope/vim-surround'                " auto v fase
+Plug 'terryma/vim-expand-region'         " 快速选择文本
+Plug 'terryma/vim-smooth-scroll'         " 平滑滚动
+
+
+" Initialize plugin system
+call plug#end()
+
+" theme init
+set t_Co=256
+set background=dark
+colorscheme PaperColor
+
+
+" ----------------------------- some base setting ---------------------------
+let mapleader=","                          " set leader
+set showcmd                                " 显示出输入的命令
+syntax on                                  " 开启语法
+syntax enable                              " 允许语法
+set nocompatible                           " 不和vi兼容
+set number   		                       " 显示行号
+filetype on                                " 文件类型感知
+set background=dark                        " 黑色背景
+set vb t_vb=                               " 关闭bell提示
+set relativenumber                         " 相对行号
+set nowrap                                 " 设置不自动折行
+set nobackup                               " 不要备份文件
+set noswapfile                             " 不要交换文件
+" --------------------------------- 缩进相关 --------------------------------
+set autoindent
+set smartindent                            " 智能缩进
+set softtabstop=4                          " 缩进长度
+set shiftwidth=4                           " 缩进长度
+set tabstop=4                              " tab键长度
+set expandtab                              " 设置将tab转换为4个空格
+" --------------------------------- 搜索和匹配 ------------------------------
+set showmatch 			                   " 高亮显示匹配的括号
+set matchtime=1 		                   " 匹配括号高亮的时间（单位是十分之一秒）
+set hlsearch 			                   " 高亮搜索
+set incsearch 			                   " 边输入边查找
+set ignorecase 			                   " 在搜索的时候忽略大小写
+
+" -------------------------------- some base mapping ------------------------
+" 平滑滚动
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+" 批量缩进
+xnoremap < <gv
+xnoremap > >gv
+
+" split
+nnoremap <leader>\ :vs<CR>
+nnoremap <leader>- :sp<CR>
+nnoremap <leader>w <c-w><c-w>
+
+" fzf
+nnoremap <silent> <Leader>ff :Files<CR>
+nnoremap <silent> <Leader>bb :Buffers<CR>
+nnoremap <Leader>fu :FzfFunky<Cr>
+
+" ------------------------------- 插件的配置 ----------------------
+" nerdtree config
+map <F1> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
