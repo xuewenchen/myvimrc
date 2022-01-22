@@ -76,7 +76,7 @@ set smartindent                            " 智能缩进
 set softtabstop=4                          " 缩进长度
 set shiftwidth=4                           " 缩进长度
 set tabstop=4                              " tab键长度
-set expandtab                              " 设置将tab转换为4个空格
+set noexpandtab                              " 设置将tab转换为4个空格
 " --------------------------------- 搜索和匹配 ------------------------------
 set showmatch 			                   " 高亮显示匹配的括号
 set matchtime=1 		                   " 匹配括号高亮的时间（单位是十分之一秒）
