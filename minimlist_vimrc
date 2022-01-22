@@ -71,8 +71,8 @@ set nowrap                                 " 设置不自动折行
 set nobackup                               " 不要备份文件
 set noswapfile                             " 不要交换文件
 " --------------------------------- 缩进相关 --------------------------------
-set autoindent
-set smartindent                            " 智能缩进
+set autoindent                             " 自动缩进
+" set smartindent                            " 智能缩进
 set softtabstop=4                          " 缩进长度
 set shiftwidth=4                           " 缩进长度
 set tabstop=4                              " tab键长度
