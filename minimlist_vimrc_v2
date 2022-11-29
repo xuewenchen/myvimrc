@@ -1,0 +1,42 @@
+" ----------------------------- some base setting ---------------------------
+let mapleader=","                          " set leader
+set showcmd                                " 显示出输入的命令
+syntax on                                  " 开启语法
+syntax enable                              " 允许语法
+set nocompatible                           " 不和vi兼容
+set number   		                       " 显示行号
+filetype on                                " 文件类型感知
+set background=dark                        " 黑色背景
+set vb t_vb=                               " 关闭bell提示
+set relativenumber                         " 相对行号
+set nowrap                                 " 设置不自动折行
+set nobackup                               " 不要备份文件
+set noswapfile                             " 不要交换文件
+" --------------------------------- 缩进相关 --------------------------------
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+"set autoindent
+set smartindent
+set expandtab                              " 设置将tab转换为4个空格
+" --------------------------------- 搜索和匹配 ------------------------------
+set showmatch 			                   " 高亮显示匹配的括号
+set matchtime=1 		                   " 匹配括号高亮的时间（单位是十分之一秒）
+set hlsearch 			                   " 高亮搜索
+set incsearch 			                   " 边输入边查找
+set ignorecase 			                   " 在搜索的时候忽略大小写
+
+" -------------------------------- some base mapping ------------------------
+" 批量缩进
+xnoremap < <gv
+xnoremap > >gv
+
+" split
+nnoremap <leader>\ :vs<CR>
+nnoremap <leader>- :sp<CR>
+nnoremap <leader>w <c-w><c-w>
+inoremap ' ''<ESC>i
+inoremap " ""<ESC>i
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
+inoremap { {<CR>}<ESC>O
