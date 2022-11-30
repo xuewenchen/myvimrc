@@ -12,6 +12,7 @@ set relativenumber                         " 相对行号
 set nowrap                                 " 设置不自动折行
 set nobackup                               " 不要备份文件
 set noswapfile                             " 不要交换文件
+colorscheme desert
 " --------------------------------- 缩进相关 --------------------------------
 set tabstop=4
 set softtabstop=4
