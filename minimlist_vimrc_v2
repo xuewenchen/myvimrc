@@ -41,3 +41,4 @@ inoremap " ""<ESC>i
 inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
 inoremap { {<CR>}<ESC>O
+nnoremap <Leader>b :ls<CR>:b<Space>
